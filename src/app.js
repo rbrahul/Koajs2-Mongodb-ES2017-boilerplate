@@ -1,16 +1,16 @@
 import Koa from 'koa';
-const app = new Koa();
+import mongoose from 'mongoose';
 import bodyParser from 'koa-bodyparser';
 import cors from 'kcors';
+const app = new Koa();
 
 import users from './routes/users';
-const mongoose = require('mongoose');
-const config = require('./../config').default;
+import config from './config';
 mongoose.Promise = global.Promise;
 mongoose.connect(config.database)
+
 app.use(cors());
 app.use(bodyParser());
-
 app.use(users.routes());
 
 app.use(async (ctx, next) => {
